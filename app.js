@@ -1,4 +1,5 @@
 //API for book reading/writing web
+require("dotenv").config()
 const express=require("express");
 const app=express();
 require("./database/connection")
@@ -11,7 +12,6 @@ app.get("/books",(req,res)=>{
         message:"Books fetched successfully."
     })
 })
-
 
 app.post("/books",(req,res)=>{
 //logic for adding book
