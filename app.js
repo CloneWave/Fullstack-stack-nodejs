@@ -1,20 +1,32 @@
 //API for book reading/writing web
 require("dotenv").config()
 const express=require("express");
+const { books } = require("./database/connection");
 const app=express();
 require("./database/connection")
+app.use(express.json())
 //Routes
 
-//fffff
-app.get("/books",(req,res)=>{
+app.get("/books",async (req,res)=>{
 //Logic for reading book
+    const datas=await books.findAll()
     res.json({
-        message:"Books fetched successfully."
+        message:"Books fetched successfully.",
+        datas
     })
 })
 
-app.post("/books",(req,res)=>{
+app.post("/books",async (req,res)=>{
 //logic for adding book
+    const {bookName,bookPrice,bookAuthor,bookGenre}=req.body
+    await books.create(
+        {
+            bookName,
+            bookPrice,
+            bookAuthor,
+            bookGenre
+        }
+    )
     res.json({
         message:"Book added successfully."
     })
